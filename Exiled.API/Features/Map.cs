@@ -95,6 +95,18 @@ namespace Exiled.API.Features
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether decontamination is enabled.
+        /// </summary>
+        public static bool IsDecontaminationEnabled
+        {
+            get => DecontaminationController.Singleton.NetworkDecontaminationOverride == DecontaminationController.DecontaminationStatus.None;
+            set =>
+                DecontaminationController.Singleton.NetworkDecontaminationOverride = value
+                    ? DecontaminationController.DecontaminationStatus.None
+                    : DecontaminationController.DecontaminationStatus.Disabled;
+        }
+
+        /// <summary>
         /// Gets the <see cref="global::AmbientSoundPlayer"/>.
         /// </summary>
         public static AmbientSoundPlayer AmbientSoundPlayer => ambientSoundPlayer ??= ReferenceHub.HostHub.GetComponent<AmbientSoundPlayer>();
@@ -145,22 +157,6 @@ namespace Exiled.API.Features
         /// Forces the light containment zone decontamination process.
         /// </summary>
         public static void StartDecontamination() => DecontaminationController.Singleton.ForceDecontamination();
-
-        /// <summary>
-        /// Enables the light containment zone decontamination process.
-        /// </summary>
-        public static void EnableDecontamination()
-        {
-            DecontaminationController.Singleton.NetworkDecontaminationOverride = DecontaminationController.DecontaminationStatus.None;
-        }
-
-        /// <summary>
-        /// Disables the light containment zone decontamination process.
-        /// </summary>
-        public static void DisableDecontamination()
-        {
-            DecontaminationController.Singleton.NetworkDecontaminationOverride = DecontaminationController.DecontaminationStatus.Disabled;
-        }
 
         /// <summary>
         /// Turns off all lights in the facility.
