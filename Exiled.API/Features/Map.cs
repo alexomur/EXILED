@@ -142,9 +142,25 @@ namespace Exiled.API.Features
         public static void ClearBroadcasts() => Server.Broadcast.RpcClearElements();
 
         /// <summary>
-        /// Starts the light containment zone decontamination process.
+        /// Forces the light containment zone decontamination process.
         /// </summary>
         public static void StartDecontamination() => DecontaminationController.Singleton.ForceDecontamination();
+
+        /// <summary>
+        /// Enables the light containment zone decontamination process.
+        /// </summary>
+        public static void EnableDecontamination()
+        {
+            DecontaminationController.Singleton.NetworkDecontaminationOverride = DecontaminationController.DecontaminationStatus.None;
+        }
+
+        /// <summary>
+        /// Disables the light containment zone decontamination process.
+        /// </summary>
+        public static void DisableDecontamination()
+        {
+            DecontaminationController.Singleton.NetworkDecontaminationOverride = DecontaminationController.DecontaminationStatus.Disabled;
+        }
 
         /// <summary>
         /// Turns off all lights in the facility.
